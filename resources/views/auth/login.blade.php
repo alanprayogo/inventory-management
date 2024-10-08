@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    {{-- sweetalert --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 </head>
 
 <body class="hold-transition login-page">
@@ -27,10 +29,10 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="" method="post">
+                <form action="{{ route('login') }}" method="post" id="formLogin">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -38,7 +40,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -46,11 +48,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <!-- /.col -->
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
 
@@ -74,6 +74,38 @@
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../../dist/js/adminlte.min.js"></script>
+    {{-- sweetalert --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+    @if (session('success'))
+        <script>
+            swal({
+                title: "Success!",
+                text: "{{ session('success') }}",
+                type: "success",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result) {
+                    window.location.href = "{{ url()->previous() }}"; // Redirect ke halaman sebelumnya
+                }
+            });
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            swal({
+                title: "Login Failed!",
+                text: "{{ $errors->first() }}",
+                type: "error",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result) {
+                    window.history.back(); // Kembali ke halaman sebelumnya
+                }
+            });
+        </script>
+    @endif
 </body>
 
 </html>

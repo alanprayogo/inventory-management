@@ -15,7 +15,8 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $this->validate($request, [
+        // Menggunakan metode validate() dari objek Request
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required|string|min:8',
         ]);
@@ -23,10 +24,11 @@ class LoginController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
+            // Menentukan redirect berdasarkan role
             if ($user->role == 'admin') {
-                return redirect()->route('dashboard-admin');
+                return redirect()->route('dashboard-admin')->with('success', 'Login successful! Welcome, Admin!');
             } else {
-                return redirect()->route('dashboard-member');
+                return redirect()->route('dashboard-member')->with('success', 'Login successful! Welcome, Member!');
             }
         }
 

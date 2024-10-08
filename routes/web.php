@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\RegisterController;
@@ -23,6 +24,7 @@ Route::middleware(['preventBack'])->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/dashboard-admin', [AdminController::class, 'showDashboard'])->name('dashboard-admin');
     Route::get('/dashboard-member', [MemberController::class, 'showDashboard'])->name('dashboard-member');
 
     Route::get('/', function () {

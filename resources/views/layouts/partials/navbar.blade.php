@@ -5,10 +5,15 @@
         <ul class="order-md-3 navbar-nav navbar-no-expand order-1 ml-auto">
             <!-- Icon Login -->
             <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fas fa-sign-in-alt"></i> <!-- Ikon login -->
-                    <a class="ml-1">Logout</a> <!-- Teks di sebelah kanan ikon -->
+                <a class="nav-link" href="#"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fas fa-sign-in-alt"></i> <!-- Ikon logout -->
+                    <span class="ml-1">Logout</span> <!-- Teks di sebelah kanan ikon -->
                 </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
         </ul>
     </ul>

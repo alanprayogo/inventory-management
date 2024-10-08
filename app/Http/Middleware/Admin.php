@@ -21,7 +21,7 @@ class Admin
 
             if ($role == 'Admin') {
                 return $next($request);
-            } elseif ($role == 'Member') {
+            } else {
                 return redirect()->route('dashboard-member');
             }
         }

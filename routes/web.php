@@ -35,48 +35,19 @@ Route::middleware(['preventBack'])->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/dashboard-admin', [AdminController::class, 'showDashboard'])->name('dashboard-admin');
+        Route::get('/manage-product', [AdminController::class, 'showManageProduct'])->name('manage-product');
+        Route::get('/manage-vendor', [AdminController::class, 'showManageVendor'])->name('manage-vendor');
+        Route::get('/manage-member', [AdminController::class, 'showManageMember'])->name('manage-member');
+        Route::get('/discount-member', [AdminController::class, 'showDiscountMember'])->name('discount-member');
+        Route::get('/stock-product', [AdminController::class, 'showStockProduct'])->name('stock-product');
+        Route::get('/procurement', [AdminController::class, 'showProcurement'])->name('procurement');
+        Route::get('/receiving', [AdminController::class, 'showReceiving'])->name('receiving');
+        Route::get('/sales', [AdminController::class, 'showSales'])->name('sales');
     });
 
     Route::middleware(['auth', 'member'])->group(function () {
         Route::get('/dashboard-member', [MemberController::class, 'showDashboard'])->name('dashboard-member');
-    });
-
-    // ADMIN
-
-    Route::get('/manage-product', function () {
-        return view('admin.manage-product');
-    });
-
-    Route::get('/manage-vendor', function () {
-        return view('admin.manage-vendor');
-    });
-
-    Route::get('/manage-member', function () {
-        return view('admin.manage-member');
-    });
-
-    Route::get('/discount-member', function () {
-        return view('admin.discount-member');
-    });
-
-    Route::get('/stock-product', function () {
-        return view('admin.stock-product');
-    });
-
-    Route::get('/procurement', function () {
-        return view('admin.procurement');
-    });
-
-    Route::get('/receiving', function () {
-        return view('admin.receiving');
-    });
-
-    Route::get('/sales', function () {
-        return view('admin.sales');
-    });
-
-    Route::get('/order', function () {
-        return view('member.order');
+        Route::get('/order', [MemberController::class, 'showOrder'])->name('order');
     });
 
 });

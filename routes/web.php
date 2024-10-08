@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -19,9 +20,10 @@ Route::middleware(['preventBack'])->group(function () {
 
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
-    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [LoginController::class, 'login']);
-    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/dashboard-member', [MemberController::class, 'showDashboard'])->name('dashboard-member');
 
     Route::get('/', function () {
         return view('welcome');
@@ -69,9 +71,9 @@ Route::middleware(['preventBack'])->group(function () {
     });
 
     // Member
-    Route::get('/dashboard-member', function () {
-        return view('member.index');
-    });
+    // Route::get('/dashboard-member', function () {
+    //     return view('member.index');
+    // });
 
     Route::get('/order', function () {
         return view('member.order');

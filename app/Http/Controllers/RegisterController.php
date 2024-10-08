@@ -2,41 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+    // Menampilkan form registrasi
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
+    // Proses registrasi
     public function register(Request $request)
     {
-        $this->validate($request, [
+        // Validasi input
+        $validatedData = $request->validate([
             'fullname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Buat pengguna baru dengan peran 'Member' secara default
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'Member'
-        ]);
+        try {
+            // Buat pengguna baru dengan peran 'Member' secara default
+            User::create([
+                'fullname' => $validatedData['fullname'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'role' => 'Member',
+            ]);
 
-        // Login otomatis setelah registrasi
-        auth()->login($user);
-
-        // Redirect berdasarkan role
-        if ($user->role === 'Admin') {
-            return redirect()->route('dashboard-admin');
-        } else {
-            return redirect()->route('dashboard-member');
+            // Kembali ke halaman pendaftaran dengan pesan sukses
+            return redirect()->back()->with('success', 'Registration successful! Please log in.');
+        } catch (\Exception $e) {
+            // Kembali ke halaman pendaftaran dengan pesan kesalahan
+            return redirect()->back()->withErrors(['Registration failed! Please try again.']);
         }
     }
-
 }

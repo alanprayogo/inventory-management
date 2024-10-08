@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    {{-- sweetalert --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 </head>
 
 <body class="hold-transition register-page">
@@ -27,7 +29,7 @@
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
 
-                <form action="{{ route('register') }}" method="post">
+                <form action="{{ route('register') }}" method="post" id="formRegister">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" name="fullname" class="form-control" placeholder="Full name" required>
@@ -54,7 +56,8 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password_confirmation" class="form-control" placeholder="Retype password" required>
+                        <input type="password" name="password_confirmation" class="form-control"
+                            placeholder="Retype password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -62,20 +65,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <!-- /.col -->
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
 
                 <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
             </div>
-            <!-- /.form-box -->
-        </div><!-- /.card -->
+        </div>
     </div>
-    <!-- /.register-box -->
 
     <!-- jQuery -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
@@ -83,6 +82,38 @@
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../../dist/js/adminlte.min.js"></script>
+    {{-- sweetalert --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+    @if (session('success'))
+        <script>
+            swal({
+                title: "Success!",
+                text: "{{ session('success') }}",
+                type: "success",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result) {
+                    window.location.href = "{{ route('login') }}"; // Redirect ke halaman login
+                }
+            });
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            swal({
+                title: "Registration Failed!",
+                text: "{{ $errors->first() }}",
+                type: "error",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result) {
+                    window.history.back(); // Kembali ke halaman sebelumnya
+                }
+            });
+        </script>
+    @endif
 </body>
 
 </html>

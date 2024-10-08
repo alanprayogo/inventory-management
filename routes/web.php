@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [LandingpageController::class, 'showLandingpage'])->name('/');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,11 +31,11 @@ Route::get('/purchase-detail', function () {
     return view('member.purchase-detail');
 });
 
+// ADMIN
 Route::get('/dashboard-admin', function () {
     return view('admin.index');
 });
 
-// ADMIN
 Route::get('/manage-product', function () {
     return view('admin.manage-product');
 });
@@ -65,3 +67,13 @@ Route::get('/receiving', function () {
 Route::get('/sales', function () {
     return view('admin.sales');
 });
+
+// Member
+Route::get('/dashboard-member', function () {
+    return view('member.index');
+});
+
+Route::get('/order', function () {
+    return view('member.order');
+});
+

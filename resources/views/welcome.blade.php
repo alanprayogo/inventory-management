@@ -36,7 +36,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="order-md-3 navbar-nav navbar-no-expand order-1 ml-auto">
                     <!-- Icon Login -->
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="/login">
                             <i class="fas fa-sign-in-alt"></i> <!-- Ikon login -->
                             <span class="ml-1">Login/Join Member</span> <!-- Teks di sebelah kanan ikon -->
                         </a>
@@ -78,14 +78,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <div class="card-body">
                                     <h6 class="card-title font-weight-bold">Susu Original</h6>
                                     <p class="card-text">Khusus member</p>
-
-                                    <!-- Kontrol Kuantitas -->
-                                    <div class="d-flex justify-content-center align-items-center mb-3">
-                                        <button class="btn btn-primary" id="minus-btn">-</button>
-                                        <input type="number" class="form-control mx-2" id="quantity" value="1"
-                                            min="1" style="width: 60px; text-align: center;">
-                                        <button class="btn btn-primary" id="plus-btn">+</button>
-                                    </div>
 
                                     <!-- Tombol Buy -->
                                     <a href="/purchase-detail" class="btn btn-success btn-block">Buy</a>
@@ -130,30 +122,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('dist/js/demo.js') }}"></script>
-    {{-- custom --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const minusBtn = document.getElementById('minus-btn');
-            const plusBtn = document.getElementById('plus-btn');
-            const quantityInput = document.getElementById('quantity');
-
-            // Event untuk tombol minus
-            minusBtn.addEventListener('click', function(event) {
-                event.preventDefault(); // Mencegah halaman refresh
-                let currentValue = parseInt(quantityInput.value);
-                if (currentValue > 1) {
-                    quantityInput.value = currentValue - 1;
-                }
-            });
-
-            // Event untuk tombol plus
-            plusBtn.addEventListener('click', function(event) {
-                event.preventDefault(); // Mencegah halaman refresh
-                let currentValue = parseInt(quantityInput.value);
-                quantityInput.value = currentValue + 1;
-            });
-        });
-    </script>
 
 </body>
 

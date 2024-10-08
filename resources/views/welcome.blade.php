@@ -36,7 +36,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="order-md-3 navbar-nav navbar-no-expand order-1 ml-auto">
                     <!-- Icon Login -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">
+                        <a class="nav-link" href="{{ route('login') }}">
                             <i class="fas fa-sign-in-alt"></i> <!-- Ikon login -->
                             <span class="ml-1">Login/Join Member</span> <!-- Teks di sebelah kanan ikon -->
                         </a>

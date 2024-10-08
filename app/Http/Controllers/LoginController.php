@@ -21,6 +21,7 @@ class LoginController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
+        // Coba untuk login dengan kredensial yang diberikan
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
@@ -32,12 +33,13 @@ class LoginController extends Controller
             }
         }
 
+        // Jika login gagal, kembali dengan pesan kesalahan
         return back()->withErrors(['email' => 'Invalid credentials.']);
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect('/login')->with('success', 'You have successfully logged out.');
     }
 }

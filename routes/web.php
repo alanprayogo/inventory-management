@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -19,26 +20,31 @@ use App\Http\Controllers\RegisterController;
 
 Route::middleware(['preventBack'])->group(function () {
 
-    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [RegisterController::class, 'register']);
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/dashboard-admin', [AdminController::class, 'showDashboard'])->name('dashboard-admin');
-    Route::get('/dashboard-member', [MemberController::class, 'showDashboard'])->name('dashboard-member');
-
-    Route::get('/', function () {
-        return view('welcome');
+    Route::middleware('userorguest')->group(function () {
+        Route::get('/', [LandingController::class, 'showLanding']); // Menggunakan LandingController
+        Route::get('/purchase-detail', [LandingController::class, 'purchaseDetail']); // Menggunakan LandingController
     });
 
-    Route::get('/purchase-detail', function () {
-        return view('member.purchase-detail');
+    Route::middleware('guest')->group(function () {
+        Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+        Route::post('/register', [RegisterController::class, 'register']);
+        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [LoginController::class, 'login']);
+    });
+    
+    Route::middleware('auth')->group(function () {
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    });
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/dashboard-admin', [AdminController::class, 'showDashboard'])->name('dashboard-admin');
+    });
+
+    Route::middleware(['auth', 'member'])->group(function () {
+        Route::get('/dashboard-member', [MemberController::class, 'showDashboard'])->name('dashboard-member');
     });
 
     // ADMIN
-    Route::get('/dashboard-admin', function () {
-        return view('admin.index');
-    });
 
     Route::get('/manage-product', function () {
         return view('admin.manage-product');
@@ -71,11 +77,6 @@ Route::middleware(['preventBack'])->group(function () {
     Route::get('/sales', function () {
         return view('admin.sales');
     });
-
-    // Member
-    // Route::get('/dashboard-member', function () {
-    //     return view('member.index');
-    // });
 
     Route::get('/order', function () {
         return view('member.order');

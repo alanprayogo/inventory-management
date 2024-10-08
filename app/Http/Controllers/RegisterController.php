@@ -34,8 +34,8 @@ class RegisterController extends Controller
                 'role' => 'Member',
             ]);
 
-            // Kembali ke halaman pendaftaran dengan pesan sukses
-            return redirect()->back()->with('success', 'Registration successful! Please log in.');
+            // Kembali ke halaman login dengan pesan sukses
+            return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
         } catch (\Exception $e) {
             // Kembali ke halaman pendaftaran dengan pesan kesalahan
             return redirect()->back()->withErrors(['Registration failed! Please try again.']);

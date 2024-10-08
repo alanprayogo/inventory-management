@@ -7,7 +7,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="">
                     <i class="fas fa-sign-in-alt"></i> <!-- Ikon login -->
-                    <span class="ml-1">Logout</span> <!-- Teks di sebelah kanan ikon -->
+                    <a class="ml-1">Logout</a> <!-- Teks di sebelah kanan ikon -->
                 </a>
             </li>
         </ul>

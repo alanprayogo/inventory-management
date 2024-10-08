@@ -9,13 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    // Menampilkan form registrasi
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
-    // Proses registrasi
     public function register(Request $request)
     {
         // Validasi input

@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-2">
-                        <button type="button" class="btn btn-block btn-primary btn-sm">Add Product</button>
+                        <a href="{{ route('show-add-product') }}" class="btn btn-block btn-primary btn-sm">Add Product</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -24,11 +24,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($products as $product)
                             <tr>
-                                <td>1</td>
-                                <td>#2345</td>
-                                <td>Original Milk</td>
-                                <td>2 September 2023</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $product->id }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->created_at }}</td>
                                 <td>
                                     <div style="display: flex; gap: 10px;">
                                         <button type="button" class="btn btn-warning btn-sm">Edit</button>
@@ -36,6 +37,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            @empty
+                            <h1>No data available yet!</h1>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

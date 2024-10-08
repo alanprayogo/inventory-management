@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -14,7 +15,8 @@ class AdminController extends Controller
 
     public function showManageProduct()
     {
-        return view('admin.manage-product');
+        $products = Product::all();
+        return view('admin.manage-product', compact('products'));
     }
 
     public function showManageVendor()

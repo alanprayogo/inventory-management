@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -43,6 +44,9 @@ Route::middleware(['preventBack'])->group(function () {
         Route::get('/procurement', [AdminController::class, 'showProcurement'])->name('procurement');
         Route::get('/receiving', [AdminController::class, 'showReceiving'])->name('receiving');
         Route::get('/sales', [AdminController::class, 'showSales'])->name('sales');
+
+        Route::get('/add-product', [ProductController::class, 'create'])->name('show-add-product');
+        Route::post('/add-product', [ProductController::class, 'store'])->name('add-product');
     });
 
     Route::middleware(['auth', 'member'])->group(function () {

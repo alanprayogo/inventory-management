@@ -59,7 +59,7 @@
                         <a href="#">Forgot password</a>
                     </p>
                     <p class="mb-0">
-                        <a href="/register" class="text-center">Register</a>
+                        <a href="{{ route('register') }}" class="text-center">Register</a>
                     </p>
                 </div>
             </div>

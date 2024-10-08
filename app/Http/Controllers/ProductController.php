@@ -25,13 +25,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the input form
+        // Validasi
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
         try {
-            // Use raw SQL to save the product data to the database (only name)
+            // DDL Create
             DB::insert('INSERT INTO products (name) VALUES (?)', [
                 $request->input('name'),
             ]);

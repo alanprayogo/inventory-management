@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
+            $table->enum('status', ['Completed', 'Pending', 'Canceled'])->default('Pending');
             $table->timestamps();
 
             $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');

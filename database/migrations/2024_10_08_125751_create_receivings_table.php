@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('receivings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('procurement_id');
             $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->timestamps();
 
+            $table->foreign('procurement_id')->references('id')->on('procurements')->onDelete('cascade');
             $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
